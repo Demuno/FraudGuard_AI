@@ -24,8 +24,8 @@ else:
     else:
         print(f"The file size is above the limit of {MAX_SIZE_MB} MB. Reducing file size...")
         try:
-            df_full = pd.read_csv(DATA_PATH, sep=',', on_bad_lines='skip')
-            total_rows = len(df_full)
+            df = pd.read_csv(DATA_PATH, sep=',', on_bad_lines='skip')
+            total_rows = len(df)
 
             if total_rows == 0:
                 print("The file is empty after reading. No data to process.")
@@ -37,7 +37,7 @@ else:
                 if target_rows == total_rows:
                     print("The file size is still above the limit, but cannot be reduced further without losing all data.")
                 else:
-                    df_reduced = df_full.head(target_rows)
+                    df_reduced = df.head(target_rows)
                     df_reduced.to_csv(DATA_PATH, index=False, sep=',')
                     
                     new_size = os.path.getsize(DATA_PATH)
@@ -51,9 +51,9 @@ else:
         except Exception as e:
             print(f"An error occurred: {e}")
 
-features = [col for col in df_full.columns if col not in ['Time', 'Class']]
+features = [col for col in df.columns if col not in ['Time', 'Class']]
 
-x = df_full[features]
+x = df[features]
 scaler = StandardScaler()
 x_scaled = scaler.fit_transform(x)
 
