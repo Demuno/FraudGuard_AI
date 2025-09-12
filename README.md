@@ -105,8 +105,6 @@ Inicie a aplicação Streamlit.
 
         src/
 
-            __init__.py
-
             train_model.py
 
             api.py
