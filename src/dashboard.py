@@ -31,11 +31,17 @@ else:
     uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
 
     if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
+        df_completo = pd.read_csv(uploaded_file)
 
-        st.write("Visualização das primeiras linhas do arquivo carregado:")
+        if len(df_completo) > 15000:
+            df = df_completo.sample(n=15000, random_state=42)
+        else:
+            df = df_completo
+
+        st.info(f"Analisando uma amostra de {len(df):,} transações (de um total de {len(df_completo):,}).")
+        
+        st.write("Amostra dos dados carregados:")
         st.dataframe(df.head())
-
         required_features = [f'V{i}' for i in range(1, 29)] + ['Amount']
         if all(feature in df.columns for feature in required_features):
             with st.spinner("Analisando transações... Isso pode levar um momento..."):
