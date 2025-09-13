@@ -60,8 +60,37 @@ else:
                 st.dataframe(suspect_transactions)
             
             st.subheader("Visualização Gráfica das Anomalias")
-            st.write("Gráfico de dispersão do Valor (`Amount`) por uma das features (`V4`). Pontos em vermelho são as anomalias detectadas.")
-
-            st.scatter_chart(df, x='V4', y='Amount', color='status', size='Amount')
+            color_map = {
+                'Suspeita de Fraude': '#FF4B4B',
+                'Transação Normal': '#0068C9'    
+            }
+    
+            df['color'] = df['status'].map(color_map)
+    
+            st.scatter_chart(
+                data=df,
+                x='V4',
+                y='Amount',
+                color='color',
+                size='Amount'
+            )
+            st.markdown("""
+                <style>
+                .legend-container { display: flex; flex-direction: column; align-items: flex-start; font-size: 14px; }
+                .legend-item { display: flex; align-items: center; margin-bottom: 5px; }
+                .legend-color-box { width: 15px; height: 15px; margin-right: 10px; border: 1px solid #444; }
+                </style>
+                <div class="legend-container">
+                    <b>Legenda:</b>
+                    <div class="legend-item">
+                        <div class="legend-color-box" style="background-color:#FF4B4B;"></div>
+                        <span>Transação Suspeita</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color-box" style="background-color:#0068C9;"></div>
+                        <span>Transação Normal</span>
+                    </div>
+                </div>
+            """, unsafe_allow_html=True)
         else:
             st.error(f"O arquivo CSV deve conter as colunas necessárias para a análise. Exemplo: {required_features[:3]}...")
