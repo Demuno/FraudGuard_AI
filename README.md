@@ -4,7 +4,7 @@
 
 **FraudGuard** O FraudGuard é uma Prova de Conceito (PoC) que valida a arquitetura e a tecnologia para um futuro sistema de Inteligência Artificial focado na detecção de anomalias em extratos bancários reais.
 
-Este projeto serve como um estudo técnico para o desenvolvimento de um MVP (Produto Mínimo Viável). O objetivo aqui foi construir e testar a solução de ponta a ponta — desde o treinamento do modelo até sua disponibilização via API e dashboard interativo — utilizando um dataset público de transações financeiras como base.
+Este projeto serve como um estudo técnico para o desenvolvimento de um MVP (Produto Mínimo Viável). O objetivo aqui foi construir e testar a solução de ponta a ponta, desde o treinamento do modelo até sua disponibilização via API e dashboard interativo, utilizando um dataset público de transações financeiras como base.
 
 O sistema utiliza um modelo de aprendizado não supervisionado (`IsolationForest`) para identificar padrões incomuns em um grande volume de dados, simulando a detecção de fraudes em tempo real.
 
@@ -104,8 +104,6 @@ Inicie a aplicação Streamlit.
             scaler.joblib
 
         src/
-
-            __init__.py
 
             train_model.py
 
